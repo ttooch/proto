@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package go.micro.srv.goods;
+
+service Goods {
+	rpc Detail(Request) returns (Response) {}
+}
+
+message Ads{
+    int32 AdsId = 1;
+    string AdsTitle = 2;
+    string Href = 3;
+    string ImgPath = 4;
+    string ImgBaseUrl = 5;
+    int32 CreatedAt = 6;
+    int32 UpdatedAt = 7;
+}
+
+message Request {
+	string name = 1;
+	string barCode = 2;
+}
+
+message Response {
+	int32 status = 1;
+	string msg = 2;
+    repeated Ads data = 3;
+}
+
