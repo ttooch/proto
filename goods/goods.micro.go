@@ -2,17 +2,19 @@
 // source: goods.proto
 
 /*
-Package go_micro_srv_goods is a generated protocol buffer package.
+Package go_micro_api_v1_goods is a generated protocol buffer package.
 
 It is generated from these files:
 	goods.proto
 
 It has these top-level messages:
-	Ads
-	Request
-	Response
+	Good
+	DetailRequest
+	DetailResponse
+	ListRequest
+	ListResponse
 */
-package go_micro_srv_goods
+package go_micro_api_v1_goods
 
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
@@ -43,7 +45,8 @@ var _ server.Option
 // Client API for Goods service
 
 type GoodsClient interface {
-	Detail(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
+	Detail(ctx context.Context, in *DetailRequest, opts ...client.CallOption) (*DetailResponse, error)
+	List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error)
 }
 
 type goodsClient struct {
@@ -56,7 +59,7 @@ func NewGoodsClient(serviceName string, c client.Client) GoodsClient {
 		c = client.NewClient()
 	}
 	if len(serviceName) == 0 {
-		serviceName = "go.micro.srv.goods"
+		serviceName = "go.micro.api.v1.goods"
 	}
 	return &goodsClient{
 		c:           c,
@@ -64,9 +67,19 @@ func NewGoodsClient(serviceName string, c client.Client) GoodsClient {
 	}
 }
 
-func (c *goodsClient) Detail(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
+func (c *goodsClient) Detail(ctx context.Context, in *DetailRequest, opts ...client.CallOption) (*DetailResponse, error) {
 	req := c.c.NewRequest(c.serviceName, "Goods.Detail", in)
-	out := new(Response)
+	out := new(DetailResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *goodsClient) List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.List", in)
+	out := new(ListResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -77,7 +90,8 @@ func (c *goodsClient) Detail(ctx context.Context, in *Request, opts ...client.Ca
 // Server API for Goods service
 
 type GoodsHandler interface {
-	Detail(context.Context, *Request, *Response) error
+	Detail(context.Context, *DetailRequest, *DetailResponse) error
+	List(context.Context, *ListRequest, *ListResponse) error
 }
 
 func RegisterGoodsHandler(s server.Server, hdlr GoodsHandler, opts ...server.HandlerOption) {
@@ -88,6 +102,10 @@ type Goods struct {
 	GoodsHandler
 }
 
-func (h *Goods) Detail(ctx context.Context, in *Request, out *Response) error {
+func (h *Goods) Detail(ctx context.Context, in *DetailRequest, out *DetailResponse) error {
 	return h.GoodsHandler.Detail(ctx, in, out)
+}
+
+func (h *Goods) List(ctx context.Context, in *ListRequest, out *ListResponse) error {
+	return h.GoodsHandler.List(ctx, in, out)
 }

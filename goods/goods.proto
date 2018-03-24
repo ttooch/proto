@@ -1,29 +1,38 @@
 syntax = "proto3";
 
-package go.micro.srv.goods;
+package go.micro.api.v1.goods;
 
 service Goods {
-	rpc Detail(Request) returns (Response) {}
+	rpc Detail(DetailRequest) returns (DetailResponse) {}
+    rpc List(ListRequest) returns (ListResponse) {}
 }
 
-message Ads{
-    int32 AdsId = 1;
-    string AdsTitle = 2;
-    string Href = 3;
-    string ImgPath = 4;
-    string ImgBaseUrl = 5;
-    int32 CreatedAt = 6;
-    int32 UpdatedAt = 7;
+message Good{
+    int32 GoodsId = 1;
+    string GoodsName = 2;
+    string GoodsBrief = 3;
+    string BrandName = 4;
 }
 
-message Request {
+message DetailRequest {
 	string name = 1;
 	string barCode = 2;
 }
 
-message Response {
+message DetailResponse {
 	int32 status = 1;
 	string msg = 2;
-    repeated Ads data = 3;
+    Good data = 3;
 }
+
+message ListRequest{
+    string page = 1;
+}
+
+message ListResponse{
+    int32 status = 1;
+    string msg = 2;
+    repeated Good data = 3;
+}
+
 
