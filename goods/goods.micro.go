@@ -8,7 +8,7 @@ It is generated from these files:
 	goods.proto
 
 It has these top-level messages:
-	Good
+	RpcGoods
 	DetailRequest
 	DetailResponse
 	ListRequest
@@ -42,33 +42,33 @@ var _ context.Context
 var _ client.Option
 var _ server.Option
 
-// Client API for Goods service
+// Client API for GoodsService service
 
-type GoodsClient interface {
+type GoodsServiceClient interface {
 	Detail(ctx context.Context, in *DetailRequest, opts ...client.CallOption) (*DetailResponse, error)
 	List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error)
 }
 
-type goodsClient struct {
+type goodsServiceClient struct {
 	c           client.Client
 	serviceName string
 }
 
-func NewGoodsClient(serviceName string, c client.Client) GoodsClient {
+func NewGoodsServiceClient(serviceName string, c client.Client) GoodsServiceClient {
 	if c == nil {
 		c = client.NewClient()
 	}
 	if len(serviceName) == 0 {
 		serviceName = "go.micro.api.v1.goods"
 	}
-	return &goodsClient{
+	return &goodsServiceClient{
 		c:           c,
 		serviceName: serviceName,
 	}
 }
 
-func (c *goodsClient) Detail(ctx context.Context, in *DetailRequest, opts ...client.CallOption) (*DetailResponse, error) {
-	req := c.c.NewRequest(c.serviceName, "Goods.Detail", in)
+func (c *goodsServiceClient) Detail(ctx context.Context, in *DetailRequest, opts ...client.CallOption) (*DetailResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "GoodsService.Detail", in)
 	out := new(DetailResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -77,8 +77,8 @@ func (c *goodsClient) Detail(ctx context.Context, in *DetailRequest, opts ...cli
 	return out, nil
 }
 
-func (c *goodsClient) List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error) {
-	req := c.c.NewRequest(c.serviceName, "Goods.List", in)
+func (c *goodsServiceClient) List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "GoodsService.List", in)
 	out := new(ListResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -87,25 +87,25 @@ func (c *goodsClient) List(ctx context.Context, in *ListRequest, opts ...client.
 	return out, nil
 }
 
-// Server API for Goods service
+// Server API for GoodsService service
 
-type GoodsHandler interface {
+type GoodsServiceHandler interface {
 	Detail(context.Context, *DetailRequest, *DetailResponse) error
 	List(context.Context, *ListRequest, *ListResponse) error
 }
 
-func RegisterGoodsHandler(s server.Server, hdlr GoodsHandler, opts ...server.HandlerOption) {
-	s.Handle(s.NewHandler(&Goods{hdlr}, opts...))
+func RegisterGoodsServiceHandler(s server.Server, hdlr GoodsServiceHandler, opts ...server.HandlerOption) {
+	s.Handle(s.NewHandler(&GoodsService{hdlr}, opts...))
 }
 
-type Goods struct {
-	GoodsHandler
+type GoodsService struct {
+	GoodsServiceHandler
 }
 
-func (h *Goods) Detail(ctx context.Context, in *DetailRequest, out *DetailResponse) error {
-	return h.GoodsHandler.Detail(ctx, in, out)
+func (h *GoodsService) Detail(ctx context.Context, in *DetailRequest, out *DetailResponse) error {
+	return h.GoodsServiceHandler.Detail(ctx, in, out)
 }
 
-func (h *Goods) List(ctx context.Context, in *ListRequest, out *ListResponse) error {
-	return h.GoodsHandler.List(ctx, in, out)
+func (h *GoodsService) List(ctx context.Context, in *ListRequest, out *ListResponse) error {
+	return h.GoodsServiceHandler.List(ctx, in, out)
 }

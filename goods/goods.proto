@@ -2,12 +2,12 @@ syntax = "proto3";
 
 package go.micro.api.v1.goods;
 
-service Goods {
+service GoodsService {
 	rpc Detail(DetailRequest) returns (DetailResponse) {}
     rpc List(ListRequest) returns (ListResponse) {}
 }
 
-message Good{
+message RpcGoods{
     int32 GoodsId = 1;
     string GoodsName = 2;
     string GoodsBrief = 3;
@@ -22,7 +22,7 @@ message DetailRequest {
 message DetailResponse {
 	int32 status = 1;
 	string msg = 2;
-    Good data = 3;
+    RpcGoods data = 3;
 }
 
 message ListRequest{
@@ -32,7 +32,7 @@ message ListRequest{
 message ListResponse{
     int32 status = 1;
     string msg = 2;
-    repeated Good data = 3;
+    repeated RpcGoods data = 3;
 }
 
 
