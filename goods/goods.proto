@@ -2,21 +2,47 @@ syntax = "proto3";
 
 package go.micro.api.v1.goods;
 
-service GoodsService {
+service Goods {
 	rpc Detail(DetailRequest) returns (DetailResponse) {}
     rpc List(ListRequest) returns (ListResponse) {}
+    rpc Update(UpdateRequest) returns (UpdateResponse) {}
+    rpc Add(AddRequest) returns (AddResponse) {}
+    rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+
+message EmptyObject{
+
 }
 
 message RpcGoods{
-    int32 GoodsId = 1;
+    int64 GoodsId = 1;
     string GoodsName = 2;
     string GoodsBrief = 3;
-    string BrandName = 4;
+    int64 CatePid = 4;
+    int64 CateId = 5;
+    string BarCode = 6;
+    int64 BrandId = 7;
+    string BrandName = 8;
+    int64 ShopId = 9;
+    string ShopName = 10;
+    int32 GoodsStock = 11;
+    string GoodsUnit = 12;
+    string GoodsSpec = 13;
+    int64 Price = 14;
+    int64 VipPrice = 15;
+    string GoodsImg = 16;
+    string ImgPathUrl = 17;
+    int32 State = 18;
+    int64 SaleNum = 19;
+    int64 ViewNum = 20;
+    string GoodsImgStr = 21;
+    string GoodsSpecStr = 22;
+    repeated string Tips = 23;
+    repeated string Tags = 24;
 }
 
 message DetailRequest {
-	string name = 1;
-	string barCode = 2;
+	int64 GoodsId = 1;
 }
 
 message DetailResponse {
@@ -26,7 +52,12 @@ message DetailResponse {
 }
 
 message ListRequest{
-    string page = 1;
+    string shopId = 1;
+    int32 page = 2;
+    int32 pageSize = 3;
+    int32 status = 4;
+    string keywords = 5;
+    string cateId = 6;
 }
 
 message ListResponse{
@@ -34,5 +65,67 @@ message ListResponse{
     string msg = 2;
     repeated RpcGoods data = 3;
 }
+
+message UpdateRequest{
+    int64 GoodsId = 1;
+    string GoodsName = 2;
+    string GoodsBrief = 3;
+    int64 CatePid = 4;
+    int64 CateId = 5;
+    string BarCode = 6;
+    int64 BrandId = 7;
+    string BrandName = 8;
+    int64 ShopId = 9;
+    string ShopName = 10;
+    int32 GoodsStock = 11;
+    string GoodsUnit = 12;
+    string GoodsSpec = 13;
+    int64 Price = 14;
+    int64 VipPrice = 15;
+    string GoodsImg = 16;
+    int32 State = 18;
+}
+
+message UpdateResponse{
+    int32 status = 1;
+    string msg = 2;
+    EmptyObject data = 3;
+}
+
+message AddRequest{
+    string GoodsName = 2;
+    string GoodsBrief = 3;
+    int64 CatePid = 4;
+    int64 CateId = 5;
+    string BarCode = 6;
+    int64 BrandId = 7;
+    string BrandName = 8;
+    int64 ShopId = 9;
+    string ShopName = 10;
+    int32 GoodsStock = 11;
+    string GoodsUnit = 12;
+    string GoodsSpec = 13;
+    int64 Price = 14;
+    int64 VipPrice = 15;
+    string GoodsImg = 16;
+    int32 State = 18;
+}
+
+message AddResponse{
+    int32 status = 1;
+    string msg = 2;
+    EmptyObject data = 3;
+}
+
+message DeleteRequest{
+    int64 GoodsId = 1;
+}
+
+message DeleteResponse{
+    int32 status = 1;
+    string msg = 2;
+    EmptyObject data = 3;
+}
+
 
 

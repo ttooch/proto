@@ -8,11 +8,18 @@ It is generated from these files:
 	goods.proto
 
 It has these top-level messages:
+	EmptyObject
 	RpcGoods
 	DetailRequest
 	DetailResponse
 	ListRequest
 	ListResponse
+	UpdateRequest
+	UpdateResponse
+	AddRequest
+	AddResponse
+	DeleteRequest
+	DeleteResponse
 */
 package go_micro_api_v1_goods
 
@@ -21,9 +28,9 @@ import fmt "fmt"
 import math "math"
 
 import (
+	context "context"
 	client "github.com/micro/go-micro/client"
 	server "github.com/micro/go-micro/server"
-	context "context"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -42,33 +49,36 @@ var _ context.Context
 var _ client.Option
 var _ server.Option
 
-// Client API for GoodsService service
+// Client API for Goods service
 
-type GoodsServiceClient interface {
+type GoodsClient interface {
 	Detail(ctx context.Context, in *DetailRequest, opts ...client.CallOption) (*DetailResponse, error)
 	List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error)
+	Update(ctx context.Context, in *UpdateRequest, opts ...client.CallOption) (*UpdateResponse, error)
+	Add(ctx context.Context, in *AddRequest, opts ...client.CallOption) (*AddResponse, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...client.CallOption) (*DeleteResponse, error)
 }
 
-type goodsServiceClient struct {
+type goodsClient struct {
 	c           client.Client
 	serviceName string
 }
 
-func NewGoodsServiceClient(serviceName string, c client.Client) GoodsServiceClient {
+func NewGoodsClient(serviceName string, c client.Client) GoodsClient {
 	if c == nil {
 		c = client.NewClient()
 	}
 	if len(serviceName) == 0 {
 		serviceName = "go.micro.api.v1.goods"
 	}
-	return &goodsServiceClient{
+	return &goodsClient{
 		c:           c,
 		serviceName: serviceName,
 	}
 }
 
-func (c *goodsServiceClient) Detail(ctx context.Context, in *DetailRequest, opts ...client.CallOption) (*DetailResponse, error) {
-	req := c.c.NewRequest(c.serviceName, "GoodsService.Detail", in)
+func (c *goodsClient) Detail(ctx context.Context, in *DetailRequest, opts ...client.CallOption) (*DetailResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.Detail", in)
 	out := new(DetailResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -77,8 +87,8 @@ func (c *goodsServiceClient) Detail(ctx context.Context, in *DetailRequest, opts
 	return out, nil
 }
 
-func (c *goodsServiceClient) List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error) {
-	req := c.c.NewRequest(c.serviceName, "GoodsService.List", in)
+func (c *goodsClient) List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.List", in)
 	out := new(ListResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
@@ -87,25 +97,70 @@ func (c *goodsServiceClient) List(ctx context.Context, in *ListRequest, opts ...
 	return out, nil
 }
 
-// Server API for GoodsService service
+func (c *goodsClient) Update(ctx context.Context, in *UpdateRequest, opts ...client.CallOption) (*UpdateResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.Update", in)
+	out := new(UpdateResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
 
-type GoodsServiceHandler interface {
+func (c *goodsClient) Add(ctx context.Context, in *AddRequest, opts ...client.CallOption) (*AddResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.Add", in)
+	out := new(AddResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *goodsClient) Delete(ctx context.Context, in *DeleteRequest, opts ...client.CallOption) (*DeleteResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.Delete", in)
+	out := new(DeleteResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+// Server API for Goods service
+
+type GoodsHandler interface {
 	Detail(context.Context, *DetailRequest, *DetailResponse) error
 	List(context.Context, *ListRequest, *ListResponse) error
+	Update(context.Context, *UpdateRequest, *UpdateResponse) error
+	Add(context.Context, *AddRequest, *AddResponse) error
+	Delete(context.Context, *DeleteRequest, *DeleteResponse) error
 }
 
-func RegisterGoodsServiceHandler(s server.Server, hdlr GoodsServiceHandler, opts ...server.HandlerOption) {
-	s.Handle(s.NewHandler(&GoodsService{hdlr}, opts...))
+func RegisterGoodsHandler(s server.Server, hdlr GoodsHandler, opts ...server.HandlerOption) {
+	s.Handle(s.NewHandler(&Goods{hdlr}, opts...))
 }
 
-type GoodsService struct {
-	GoodsServiceHandler
+type Goods struct {
+	GoodsHandler
 }
 
-func (h *GoodsService) Detail(ctx context.Context, in *DetailRequest, out *DetailResponse) error {
-	return h.GoodsServiceHandler.Detail(ctx, in, out)
+func (h *Goods) Detail(ctx context.Context, in *DetailRequest, out *DetailResponse) error {
+	return h.GoodsHandler.Detail(ctx, in, out)
 }
 
-func (h *GoodsService) List(ctx context.Context, in *ListRequest, out *ListResponse) error {
-	return h.GoodsServiceHandler.List(ctx, in, out)
+func (h *Goods) List(ctx context.Context, in *ListRequest, out *ListResponse) error {
+	return h.GoodsHandler.List(ctx, in, out)
+}
+
+func (h *Goods) Update(ctx context.Context, in *UpdateRequest, out *UpdateResponse) error {
+	return h.GoodsHandler.Update(ctx, in, out)
+}
+
+func (h *Goods) Add(ctx context.Context, in *AddRequest, out *AddResponse) error {
+	return h.GoodsHandler.Add(ctx, in, out)
+}
+
+func (h *Goods) Delete(ctx context.Context, in *DeleteRequest, out *DeleteResponse) error {
+	return h.GoodsHandler.Delete(ctx, in, out)
 }
