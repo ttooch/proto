@@ -4,16 +4,19 @@ package go.micro.srv.goods;
 
 service Goods {
 	rpc Detail(Request) returns (Response) {}
+
+	rpc Delete(DeleteRequest) returns (DeleteResponse){}
+
+	rpc Info(InfoRequest) returns (InfoResponse){}
+
+	rpc Delete2(InfoRequest) returns (InfoResponse){}
 }
 
-message Ads{
-    int32 AdsId = 1;
-    string AdsTitle = 2;
-    string Href = 3;
-    string ImgPath = 4;
-    string ImgBaseUrl = 5;
-    int32 CreatedAt = 6;
-    int32 UpdatedAt = 7;
+message Good{
+    int32 GoodsID = 1;
+    string GoodsName = 2;
+    int32 CreatedAt = 3;
+    int32 UpdatedAt = 4;
 }
 
 message Request {
@@ -24,6 +27,26 @@ message Request {
 message Response {
 	int32 status = 1;
 	string msg = 2;
-    repeated Ads data = 3;
+    repeated Good data = 3;
+}
+message DeleteRequest{
+
+    string goods_id = 1;
+}
+message DeleteResponse {
+	int32 status = 1;
+	string msg = 2;
+}
+message InfoRequest{
+
+    int32 BrandId = 1;
+
+    string business_code = 2;
 }
 
+message InfoResponse{
+
+	int32 status = 1;
+	string msg = 2;
+    Good data = 3;
+}

@@ -8,9 +8,13 @@ It is generated from these files:
 	goods.proto
 
 It has these top-level messages:
-	Ads
+	Good
 	Request
 	Response
+	DeleteRequest
+	DeleteResponse
+	InfoRequest
+	InfoResponse
 */
 package go_micro_srv_goods
 
@@ -44,6 +48,9 @@ var _ server.Option
 
 type GoodsClient interface {
 	Detail(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
+	Delete(ctx context.Context, in *DeleteRequest, opts ...client.CallOption) (*DeleteResponse, error)
+	Info(ctx context.Context, in *InfoRequest, opts ...client.CallOption) (*InfoResponse, error)
+	Delete2(ctx context.Context, in *InfoRequest, opts ...client.CallOption) (*InfoResponse, error)
 }
 
 type goodsClient struct {
@@ -74,10 +81,43 @@ func (c *goodsClient) Detail(ctx context.Context, in *Request, opts ...client.Ca
 	return out, nil
 }
 
+func (c *goodsClient) Delete(ctx context.Context, in *DeleteRequest, opts ...client.CallOption) (*DeleteResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.Delete", in)
+	out := new(DeleteResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *goodsClient) Info(ctx context.Context, in *InfoRequest, opts ...client.CallOption) (*InfoResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.Info", in)
+	out := new(InfoResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *goodsClient) Delete2(ctx context.Context, in *InfoRequest, opts ...client.CallOption) (*InfoResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.Delete2", in)
+	out := new(InfoResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // Server API for Goods service
 
 type GoodsHandler interface {
 	Detail(context.Context, *Request, *Response) error
+	Delete(context.Context, *DeleteRequest, *DeleteResponse) error
+	Info(context.Context, *InfoRequest, *InfoResponse) error
+	Delete2(context.Context, *InfoRequest, *InfoResponse) error
 }
 
 func RegisterGoodsHandler(s server.Server, hdlr GoodsHandler, opts ...server.HandlerOption) {
@@ -90,4 +130,16 @@ type Goods struct {
 
 func (h *Goods) Detail(ctx context.Context, in *Request, out *Response) error {
 	return h.GoodsHandler.Detail(ctx, in, out)
+}
+
+func (h *Goods) Delete(ctx context.Context, in *DeleteRequest, out *DeleteResponse) error {
+	return h.GoodsHandler.Delete(ctx, in, out)
+}
+
+func (h *Goods) Info(ctx context.Context, in *InfoRequest, out *InfoResponse) error {
+	return h.GoodsHandler.Info(ctx, in, out)
+}
+
+func (h *Goods) Delete2(ctx context.Context, in *InfoRequest, out *InfoResponse) error {
+	return h.GoodsHandler.Delete2(ctx, in, out)
 }
