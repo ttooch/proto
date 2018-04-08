@@ -2,30 +2,35 @@
 // source: goods.proto
 
 /*
-Package go_micro_srv_goods is a generated protocol buffer package.
+Package go_micro_api_v1_goods is a generated protocol buffer package.
 
 It is generated from these files:
 	goods.proto
 
 It has these top-level messages:
-	Good
-	Request
-	Response
+	EmptyObject
+	RpcGoods
+	DetailRequest
+	DetailResponse
+	ListRequest
+	ListResponse
+	UpdateRequest
+	UpdateResponse
+	AddRequest
+	AddResponse
 	DeleteRequest
 	DeleteResponse
-	InfoRequest
-	InfoResponse
 */
-package go_micro_srv_goods
+package go_micro_api_v1_goods
 
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
 import math "math"
 
 import (
+	context "context"
 	client "github.com/micro/go-micro/client"
 	server "github.com/micro/go-micro/server"
-	context "context"
 )
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -47,10 +52,11 @@ var _ server.Option
 // Client API for Goods service
 
 type GoodsClient interface {
-	Detail(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error)
+	Detail(ctx context.Context, in *DetailRequest, opts ...client.CallOption) (*DetailResponse, error)
+	List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error)
+	Update(ctx context.Context, in *UpdateRequest, opts ...client.CallOption) (*UpdateResponse, error)
+	Add(ctx context.Context, in *AddRequest, opts ...client.CallOption) (*AddResponse, error)
 	Delete(ctx context.Context, in *DeleteRequest, opts ...client.CallOption) (*DeleteResponse, error)
-	Info(ctx context.Context, in *InfoRequest, opts ...client.CallOption) (*InfoResponse, error)
-	Delete2(ctx context.Context, in *InfoRequest, opts ...client.CallOption) (*InfoResponse, error)
 }
 
 type goodsClient struct {
@@ -63,7 +69,7 @@ func NewGoodsClient(serviceName string, c client.Client) GoodsClient {
 		c = client.NewClient()
 	}
 	if len(serviceName) == 0 {
-		serviceName = "go.micro.srv.goods"
+		serviceName = "go.micro.api.v1.goods"
 	}
 	return &goodsClient{
 		c:           c,
@@ -71,9 +77,39 @@ func NewGoodsClient(serviceName string, c client.Client) GoodsClient {
 	}
 }
 
-func (c *goodsClient) Detail(ctx context.Context, in *Request, opts ...client.CallOption) (*Response, error) {
+func (c *goodsClient) Detail(ctx context.Context, in *DetailRequest, opts ...client.CallOption) (*DetailResponse, error) {
 	req := c.c.NewRequest(c.serviceName, "Goods.Detail", in)
-	out := new(Response)
+	out := new(DetailResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *goodsClient) List(ctx context.Context, in *ListRequest, opts ...client.CallOption) (*ListResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.List", in)
+	out := new(ListResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *goodsClient) Update(ctx context.Context, in *UpdateRequest, opts ...client.CallOption) (*UpdateResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.Update", in)
+	out := new(UpdateResponse)
+	err := c.c.Call(ctx, req, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *goodsClient) Add(ctx context.Context, in *AddRequest, opts ...client.CallOption) (*AddResponse, error) {
+	req := c.c.NewRequest(c.serviceName, "Goods.Add", in)
+	out := new(AddResponse)
 	err := c.c.Call(ctx, req, out, opts...)
 	if err != nil {
 		return nil, err
@@ -91,33 +127,14 @@ func (c *goodsClient) Delete(ctx context.Context, in *DeleteRequest, opts ...cli
 	return out, nil
 }
 
-func (c *goodsClient) Info(ctx context.Context, in *InfoRequest, opts ...client.CallOption) (*InfoResponse, error) {
-	req := c.c.NewRequest(c.serviceName, "Goods.Info", in)
-	out := new(InfoResponse)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *goodsClient) Delete2(ctx context.Context, in *InfoRequest, opts ...client.CallOption) (*InfoResponse, error) {
-	req := c.c.NewRequest(c.serviceName, "Goods.Delete2", in)
-	out := new(InfoResponse)
-	err := c.c.Call(ctx, req, out, opts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
 // Server API for Goods service
 
 type GoodsHandler interface {
-	Detail(context.Context, *Request, *Response) error
+	Detail(context.Context, *DetailRequest, *DetailResponse) error
+	List(context.Context, *ListRequest, *ListResponse) error
+	Update(context.Context, *UpdateRequest, *UpdateResponse) error
+	Add(context.Context, *AddRequest, *AddResponse) error
 	Delete(context.Context, *DeleteRequest, *DeleteResponse) error
-	Info(context.Context, *InfoRequest, *InfoResponse) error
-	Delete2(context.Context, *InfoRequest, *InfoResponse) error
 }
 
 func RegisterGoodsHandler(s server.Server, hdlr GoodsHandler, opts ...server.HandlerOption) {
@@ -128,18 +145,22 @@ type Goods struct {
 	GoodsHandler
 }
 
-func (h *Goods) Detail(ctx context.Context, in *Request, out *Response) error {
+func (h *Goods) Detail(ctx context.Context, in *DetailRequest, out *DetailResponse) error {
 	return h.GoodsHandler.Detail(ctx, in, out)
+}
+
+func (h *Goods) List(ctx context.Context, in *ListRequest, out *ListResponse) error {
+	return h.GoodsHandler.List(ctx, in, out)
+}
+
+func (h *Goods) Update(ctx context.Context, in *UpdateRequest, out *UpdateResponse) error {
+	return h.GoodsHandler.Update(ctx, in, out)
+}
+
+func (h *Goods) Add(ctx context.Context, in *AddRequest, out *AddResponse) error {
+	return h.GoodsHandler.Add(ctx, in, out)
 }
 
 func (h *Goods) Delete(ctx context.Context, in *DeleteRequest, out *DeleteResponse) error {
 	return h.GoodsHandler.Delete(ctx, in, out)
-}
-
-func (h *Goods) Info(ctx context.Context, in *InfoRequest, out *InfoResponse) error {
-	return h.GoodsHandler.Info(ctx, in, out)
-}
-
-func (h *Goods) Delete2(ctx context.Context, in *InfoRequest, out *InfoResponse) error {
-	return h.GoodsHandler.Delete2(ctx, in, out)
 }

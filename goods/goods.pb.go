@@ -2,21 +2,26 @@
 // source: goods.proto
 
 /*
-Package go_micro_srv_goods is a generated protocol buffer package.
+Package go_micro_api_v1_goods is a generated protocol buffer package.
 
 It is generated from these files:
 	goods.proto
 
 It has these top-level messages:
-	Good
-	Request
-	Response
+	EmptyObject
+	RpcGoods
+	DetailRequest
+	DetailResponse
+	ListRequest
+	ListResponse
+	UpdateRequest
+	UpdateResponse
+	AddRequest
+	AddResponse
 	DeleteRequest
 	DeleteResponse
-	InfoRequest
-	InfoResponse
 */
-package go_micro_srv_goods
+package go_micro_api_v1_goods
 
 import proto "github.com/golang/protobuf/proto"
 import fmt "fmt"
@@ -33,96 +38,688 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion2 // please upgrade the proto package
 
-type Good struct {
-	GoodsID   int32  `protobuf:"varint,1,opt,name=goods_id" json:"goods_id"`
-	GoodsName string `protobuf:"bytes,2,opt,name=goods_name" json:"goods_name"`
-	CreatedAt int32  `protobuf:"varint,3,opt,name=created_at" json:"created_at"`
-	UpdatedAt int32  `protobuf:"varint,4,opt,name=updated_at" json:"updated_at"`
+type EmptyObject struct {
 }
 
-func (m *Good) Reset()                    { *m = Good{} }
-func (m *Good) String() string            { return proto.CompactTextString(m) }
-func (*Good) ProtoMessage()               {}
-func (*Good) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
+func (m *EmptyObject) Reset()                    { *m = EmptyObject{} }
+func (m *EmptyObject) String() string            { return proto.CompactTextString(m) }
+func (*EmptyObject) ProtoMessage()               {}
+func (*EmptyObject) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{0} }
 
-func (m *Good) GetGoodsID() int32 {
+type RpcGoods struct {
+	GoodsId      int64    `protobuf:"varint,1,opt,name=goods_id" json:"goods_id"`
+	GoodsName    string   `protobuf:"bytes,2,opt,name=goods_name" json:"goods_name"`
+	GoodsBrief   string   `protobuf:"bytes,3,opt,name=goods_brief" json:"goods_brief"`
+	CatePid      int64    `protobuf:"varint,4,opt,name=cate_pid" json:"cate_pid"`
+	CateId       int64    `protobuf:"varint,5,opt,name=cate_id" json:"cate_id"`
+	BarCode      string   `protobuf:"bytes,6,opt,name=bar_code" json:"bar_code"`
+	BrandId      int64    `protobuf:"varint,7,opt,name=brand_id" json:"brand_id"`
+	BrandName    string   `protobuf:"bytes,8,opt,name=brand_name" json:"brand_name"`
+	ShopId       int64    `protobuf:"varint,9,opt,name=shop_id" json:"shop_id"`
+	ShopName     string   `protobuf:"bytes,10,opt,name=shop_name" json:"shop_name"`
+	GoodsStock   int32    `protobuf:"varint,11,opt,name=goods_stock" json:"goods_stock"`
+	GoodsUnit    string   `protobuf:"bytes,12,opt,name=goods_unit" json:"goods_unit"`
+	GoodsSpec    string   `protobuf:"bytes,13,opt,name=goods_spec" json:"goods_spec"`
+	Price        int64    `protobuf:"varint,14,opt,name=price" json:"price"`
+	VipPrice     int64    `protobuf:"varint,15,opt,name=vip_price" json:"vip_price"`
+	GoodsImg     string   `protobuf:"bytes,16,opt,name=goods_img" json:"goods_img"`
+	ImgPathUrl   string   `protobuf:"bytes,17,opt,name=img_path_url" json:"img_path_url"`
+	State        int32    `protobuf:"varint,18,opt,name=state" json:"state"`
+	SaleNum      int64    `protobuf:"varint,19,opt,name=sale_num" json:"sale_num"`
+	ViewNum      int64    `protobuf:"varint,20,opt,name=view_num" json:"view_num"`
+	GoodsImgStr  string   `protobuf:"bytes,21,opt,name=goods_img_str" json:"goods_img_str"`
+	GoodsSpecStr string   `protobuf:"bytes,22,opt,name=goods_spec_str" json:"goods_spec_str"`
+	Tips         []string `protobuf:"bytes,23,rep,name=tips" json:"tips"`
+	Tags         []string `protobuf:"bytes,24,rep,name=tags" json:"tags"`
+}
+
+func (m *RpcGoods) Reset()                    { *m = RpcGoods{} }
+func (m *RpcGoods) String() string            { return proto.CompactTextString(m) }
+func (*RpcGoods) ProtoMessage()               {}
+func (*RpcGoods) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
+
+func (m *RpcGoods) GetGoodsId() int64 {
 	if m != nil {
-		return m.GoodsID
+		return m.GoodsId
 	}
 	return 0
 }
 
-func (m *Good) GetGoodsName() string {
+func (m *RpcGoods) GetGoodsName() string {
 	if m != nil {
 		return m.GoodsName
 	}
 	return ""
 }
 
-func (m *Good) GetCreatedAt() int32 {
+func (m *RpcGoods) GetGoodsBrief() string {
 	if m != nil {
-		return m.CreatedAt
-	}
-	return 0
-}
-
-func (m *Good) GetUpdatedAt() int32 {
-	if m != nil {
-		return m.UpdatedAt
-	}
-	return 0
-}
-
-type Request struct {
-	Name    string `protobuf:"bytes,1,opt,name=name" json:"name"`
-	BarCode string `protobuf:"bytes,2,opt,name=bar_code" json:"bar_code"`
-}
-
-func (m *Request) Reset()                    { *m = Request{} }
-func (m *Request) String() string            { return proto.CompactTextString(m) }
-func (*Request) ProtoMessage()               {}
-func (*Request) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{1} }
-
-func (m *Request) GetName() string {
-	if m != nil {
-		return m.Name
+		return m.GoodsBrief
 	}
 	return ""
 }
 
-func (m *Request) GetBarCode() string {
+func (m *RpcGoods) GetCatePid() int64 {
+	if m != nil {
+		return m.CatePid
+	}
+	return 0
+}
+
+func (m *RpcGoods) GetCateId() int64 {
+	if m != nil {
+		return m.CateId
+	}
+	return 0
+}
+
+func (m *RpcGoods) GetBarCode() string {
 	if m != nil {
 		return m.BarCode
 	}
 	return ""
 }
 
-type Response struct {
-	Status int32   `protobuf:"varint,1,opt,name=status" json:"status"`
-	Msg    string  `protobuf:"bytes,2,opt,name=msg" json:"msg"`
-	Data   []*Good `protobuf:"bytes,3,rep,name=data" json:"data"`
+func (m *RpcGoods) GetBrandId() int64 {
+	if m != nil {
+		return m.BrandId
+	}
+	return 0
 }
 
-func (m *Response) Reset()                    { *m = Response{} }
-func (m *Response) String() string            { return proto.CompactTextString(m) }
-func (*Response) ProtoMessage()               {}
-func (*Response) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+func (m *RpcGoods) GetBrandName() string {
+	if m != nil {
+		return m.BrandName
+	}
+	return ""
+}
 
-func (m *Response) GetStatus() int32 {
+func (m *RpcGoods) GetShopId() int64 {
+	if m != nil {
+		return m.ShopId
+	}
+	return 0
+}
+
+func (m *RpcGoods) GetShopName() string {
+	if m != nil {
+		return m.ShopName
+	}
+	return ""
+}
+
+func (m *RpcGoods) GetGoodsStock() int32 {
+	if m != nil {
+		return m.GoodsStock
+	}
+	return 0
+}
+
+func (m *RpcGoods) GetGoodsUnit() string {
+	if m != nil {
+		return m.GoodsUnit
+	}
+	return ""
+}
+
+func (m *RpcGoods) GetGoodsSpec() string {
+	if m != nil {
+		return m.GoodsSpec
+	}
+	return ""
+}
+
+func (m *RpcGoods) GetPrice() int64 {
+	if m != nil {
+		return m.Price
+	}
+	return 0
+}
+
+func (m *RpcGoods) GetVipPrice() int64 {
+	if m != nil {
+		return m.VipPrice
+	}
+	return 0
+}
+
+func (m *RpcGoods) GetGoodsImg() string {
+	if m != nil {
+		return m.GoodsImg
+	}
+	return ""
+}
+
+func (m *RpcGoods) GetImgPathUrl() string {
+	if m != nil {
+		return m.ImgPathUrl
+	}
+	return ""
+}
+
+func (m *RpcGoods) GetState() int32 {
+	if m != nil {
+		return m.State
+	}
+	return 0
+}
+
+func (m *RpcGoods) GetSaleNum() int64 {
+	if m != nil {
+		return m.SaleNum
+	}
+	return 0
+}
+
+func (m *RpcGoods) GetViewNum() int64 {
+	if m != nil {
+		return m.ViewNum
+	}
+	return 0
+}
+
+func (m *RpcGoods) GetGoodsImgStr() string {
+	if m != nil {
+		return m.GoodsImgStr
+	}
+	return ""
+}
+
+func (m *RpcGoods) GetGoodsSpecStr() string {
+	if m != nil {
+		return m.GoodsSpecStr
+	}
+	return ""
+}
+
+func (m *RpcGoods) GetTips() []string {
+	if m != nil {
+		return m.Tips
+	}
+	return nil
+}
+
+func (m *RpcGoods) GetTags() []string {
+	if m != nil {
+		return m.Tags
+	}
+	return nil
+}
+
+type DetailRequest struct {
+	GoodsId int64 `protobuf:"varint,1,opt,name=goods_id" json:"goods_id"`
+}
+
+func (m *DetailRequest) Reset()                    { *m = DetailRequest{} }
+func (m *DetailRequest) String() string            { return proto.CompactTextString(m) }
+func (*DetailRequest) ProtoMessage()               {}
+func (*DetailRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{2} }
+
+func (m *DetailRequest) GetGoodsId() int64 {
+	if m != nil {
+		return m.GoodsId
+	}
+	return 0
+}
+
+type DetailResponse struct {
+	Status int32     `protobuf:"varint,1,opt,name=status" json:"status"`
+	Msg    string    `protobuf:"bytes,2,opt,name=msg" json:"msg"`
+	Data   *RpcGoods `protobuf:"bytes,3,opt,name=data" json:"data"`
+}
+
+func (m *DetailResponse) Reset()                    { *m = DetailResponse{} }
+func (m *DetailResponse) String() string            { return proto.CompactTextString(m) }
+func (*DetailResponse) ProtoMessage()               {}
+func (*DetailResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+
+func (m *DetailResponse) GetStatus() int32 {
 	if m != nil {
 		return m.Status
 	}
 	return 0
 }
 
-func (m *Response) GetMsg() string {
+func (m *DetailResponse) GetMsg() string {
 	if m != nil {
 		return m.Msg
 	}
 	return ""
 }
 
-func (m *Response) GetData() []*Good {
+func (m *DetailResponse) GetData() *RpcGoods {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
+type ListRequest struct {
+	ShopId   string `protobuf:"bytes,1,opt,name=shop_id" json:"shop_id"`
+	Page     int32  `protobuf:"varint,2,opt,name=page" json:"page"`
+	PageSize int32  `protobuf:"varint,3,opt,name=page_size" json:"page_size"`
+	Status   int32  `protobuf:"varint,4,opt,name=status" json:"status"`
+	Keywords string `protobuf:"bytes,5,opt,name=keywords" json:"keywords"`
+	CateId   string `protobuf:"bytes,6,opt,name=cate_id" json:"cate_id"`
+}
+
+func (m *ListRequest) Reset()                    { *m = ListRequest{} }
+func (m *ListRequest) String() string            { return proto.CompactTextString(m) }
+func (*ListRequest) ProtoMessage()               {}
+func (*ListRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+
+func (m *ListRequest) GetShopId() string {
+	if m != nil {
+		return m.ShopId
+	}
+	return ""
+}
+
+func (m *ListRequest) GetPage() int32 {
+	if m != nil {
+		return m.Page
+	}
+	return 0
+}
+
+func (m *ListRequest) GetPageSize() int32 {
+	if m != nil {
+		return m.PageSize
+	}
+	return 0
+}
+
+func (m *ListRequest) GetStatus() int32 {
+	if m != nil {
+		return m.Status
+	}
+	return 0
+}
+
+func (m *ListRequest) GetKeywords() string {
+	if m != nil {
+		return m.Keywords
+	}
+	return ""
+}
+
+func (m *ListRequest) GetCateId() string {
+	if m != nil {
+		return m.CateId
+	}
+	return ""
+}
+
+type ListResponse struct {
+	Status int32       `protobuf:"varint,1,opt,name=status" json:"status"`
+	Msg    string      `protobuf:"bytes,2,opt,name=msg" json:"msg"`
+	Data   []*RpcGoods `protobuf:"bytes,3,rep,name=data" json:"data"`
+}
+
+func (m *ListResponse) Reset()                    { *m = ListResponse{} }
+func (m *ListResponse) String() string            { return proto.CompactTextString(m) }
+func (*ListResponse) ProtoMessage()               {}
+func (*ListResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
+
+func (m *ListResponse) GetStatus() int32 {
+	if m != nil {
+		return m.Status
+	}
+	return 0
+}
+
+func (m *ListResponse) GetMsg() string {
+	if m != nil {
+		return m.Msg
+	}
+	return ""
+}
+
+func (m *ListResponse) GetData() []*RpcGoods {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
+type UpdateRequest struct {
+	GoodsId    int64  `protobuf:"varint,1,opt,name=goods_id" json:"goods_id"`
+	GoodsName  string `protobuf:"bytes,2,opt,name=goods_name" json:"goods_name"`
+	GoodsBrief string `protobuf:"bytes,3,opt,name=goods_brief" json:"goods_brief"`
+	CatePid    int64  `protobuf:"varint,4,opt,name=cate_pid" json:"cate_pid"`
+	CateId     int64  `protobuf:"varint,5,opt,name=cate_id" json:"cate_id"`
+	BarCode    string `protobuf:"bytes,6,opt,name=bar_code" json:"bar_code"`
+	BrandId    int64  `protobuf:"varint,7,opt,name=brand_id" json:"brand_id"`
+	BrandName  string `protobuf:"bytes,8,opt,name=brand_name" json:"brand_name"`
+	ShopId     int64  `protobuf:"varint,9,opt,name=shop_id" json:"shop_id"`
+	ShopName   string `protobuf:"bytes,10,opt,name=shop_name" json:"shop_name"`
+	GoodsStock int32  `protobuf:"varint,11,opt,name=goods_stock" json:"goods_stock"`
+	GoodsUnit  string `protobuf:"bytes,12,opt,name=goods_unit" json:"goods_unit"`
+	GoodsSpec  string `protobuf:"bytes,13,opt,name=goods_spec" json:"goods_spec"`
+	Price      int64  `protobuf:"varint,14,opt,name=price" json:"price"`
+	VipPrice   int64  `protobuf:"varint,15,opt,name=vip_price" json:"vip_price"`
+	GoodsImg   string `protobuf:"bytes,16,opt,name=goods_img" json:"goods_img"`
+	State      int32  `protobuf:"varint,18,opt,name=state" json:"state"`
+}
+
+func (m *UpdateRequest) Reset()                    { *m = UpdateRequest{} }
+func (m *UpdateRequest) String() string            { return proto.CompactTextString(m) }
+func (*UpdateRequest) ProtoMessage()               {}
+func (*UpdateRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
+
+func (m *UpdateRequest) GetGoodsId() int64 {
+	if m != nil {
+		return m.GoodsId
+	}
+	return 0
+}
+
+func (m *UpdateRequest) GetGoodsName() string {
+	if m != nil {
+		return m.GoodsName
+	}
+	return ""
+}
+
+func (m *UpdateRequest) GetGoodsBrief() string {
+	if m != nil {
+		return m.GoodsBrief
+	}
+	return ""
+}
+
+func (m *UpdateRequest) GetCatePid() int64 {
+	if m != nil {
+		return m.CatePid
+	}
+	return 0
+}
+
+func (m *UpdateRequest) GetCateId() int64 {
+	if m != nil {
+		return m.CateId
+	}
+	return 0
+}
+
+func (m *UpdateRequest) GetBarCode() string {
+	if m != nil {
+		return m.BarCode
+	}
+	return ""
+}
+
+func (m *UpdateRequest) GetBrandId() int64 {
+	if m != nil {
+		return m.BrandId
+	}
+	return 0
+}
+
+func (m *UpdateRequest) GetBrandName() string {
+	if m != nil {
+		return m.BrandName
+	}
+	return ""
+}
+
+func (m *UpdateRequest) GetShopId() int64 {
+	if m != nil {
+		return m.ShopId
+	}
+	return 0
+}
+
+func (m *UpdateRequest) GetShopName() string {
+	if m != nil {
+		return m.ShopName
+	}
+	return ""
+}
+
+func (m *UpdateRequest) GetGoodsStock() int32 {
+	if m != nil {
+		return m.GoodsStock
+	}
+	return 0
+}
+
+func (m *UpdateRequest) GetGoodsUnit() string {
+	if m != nil {
+		return m.GoodsUnit
+	}
+	return ""
+}
+
+func (m *UpdateRequest) GetGoodsSpec() string {
+	if m != nil {
+		return m.GoodsSpec
+	}
+	return ""
+}
+
+func (m *UpdateRequest) GetPrice() int64 {
+	if m != nil {
+		return m.Price
+	}
+	return 0
+}
+
+func (m *UpdateRequest) GetVipPrice() int64 {
+	if m != nil {
+		return m.VipPrice
+	}
+	return 0
+}
+
+func (m *UpdateRequest) GetGoodsImg() string {
+	if m != nil {
+		return m.GoodsImg
+	}
+	return ""
+}
+
+func (m *UpdateRequest) GetState() int32 {
+	if m != nil {
+		return m.State
+	}
+	return 0
+}
+
+type UpdateResponse struct {
+	Status int32        `protobuf:"varint,1,opt,name=status" json:"status"`
+	Msg    string       `protobuf:"bytes,2,opt,name=msg" json:"msg"`
+	Data   *EmptyObject `protobuf:"bytes,3,opt,name=data" json:"data"`
+}
+
+func (m *UpdateResponse) Reset()                    { *m = UpdateResponse{} }
+func (m *UpdateResponse) String() string            { return proto.CompactTextString(m) }
+func (*UpdateResponse) ProtoMessage()               {}
+func (*UpdateResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{7} }
+
+func (m *UpdateResponse) GetStatus() int32 {
+	if m != nil {
+		return m.Status
+	}
+	return 0
+}
+
+func (m *UpdateResponse) GetMsg() string {
+	if m != nil {
+		return m.Msg
+	}
+	return ""
+}
+
+func (m *UpdateResponse) GetData() *EmptyObject {
+	if m != nil {
+		return m.Data
+	}
+	return nil
+}
+
+type AddRequest struct {
+	GoodsName  string `protobuf:"bytes,2,opt,name=goods_name" json:"goods_name"`
+	GoodsBrief string `protobuf:"bytes,3,opt,name=goods_brief" json:"goods_brief"`
+	CatePid    int64  `protobuf:"varint,4,opt,name=cate_pid" json:"cate_pid"`
+	CateId     int64  `protobuf:"varint,5,opt,name=cate_id" json:"cate_id"`
+	BarCode    string `protobuf:"bytes,6,opt,name=bar_code" json:"bar_code"`
+	BrandId    int64  `protobuf:"varint,7,opt,name=brand_id" json:"brand_id"`
+	BrandName  string `protobuf:"bytes,8,opt,name=brand_name" json:"brand_name"`
+	ShopId     int64  `protobuf:"varint,9,opt,name=shop_id" json:"shop_id"`
+	ShopName   string `protobuf:"bytes,10,opt,name=shop_name" json:"shop_name"`
+	GoodsStock int32  `protobuf:"varint,11,opt,name=goods_stock" json:"goods_stock"`
+	GoodsUnit  string `protobuf:"bytes,12,opt,name=goods_unit" json:"goods_unit"`
+	GoodsSpec  string `protobuf:"bytes,13,opt,name=goods_spec" json:"goods_spec"`
+	Price      int64  `protobuf:"varint,14,opt,name=price" json:"price"`
+	VipPrice   int64  `protobuf:"varint,15,opt,name=vip_price" json:"vip_price"`
+	GoodsImg   string `protobuf:"bytes,16,opt,name=goods_img" json:"goods_img"`
+	State      int32  `protobuf:"varint,18,opt,name=state" json:"state"`
+}
+
+func (m *AddRequest) Reset()                    { *m = AddRequest{} }
+func (m *AddRequest) String() string            { return proto.CompactTextString(m) }
+func (*AddRequest) ProtoMessage()               {}
+func (*AddRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{8} }
+
+func (m *AddRequest) GetGoodsName() string {
+	if m != nil {
+		return m.GoodsName
+	}
+	return ""
+}
+
+func (m *AddRequest) GetGoodsBrief() string {
+	if m != nil {
+		return m.GoodsBrief
+	}
+	return ""
+}
+
+func (m *AddRequest) GetCatePid() int64 {
+	if m != nil {
+		return m.CatePid
+	}
+	return 0
+}
+
+func (m *AddRequest) GetCateId() int64 {
+	if m != nil {
+		return m.CateId
+	}
+	return 0
+}
+
+func (m *AddRequest) GetBarCode() string {
+	if m != nil {
+		return m.BarCode
+	}
+	return ""
+}
+
+func (m *AddRequest) GetBrandId() int64 {
+	if m != nil {
+		return m.BrandId
+	}
+	return 0
+}
+
+func (m *AddRequest) GetBrandName() string {
+	if m != nil {
+		return m.BrandName
+	}
+	return ""
+}
+
+func (m *AddRequest) GetShopId() int64 {
+	if m != nil {
+		return m.ShopId
+	}
+	return 0
+}
+
+func (m *AddRequest) GetShopName() string {
+	if m != nil {
+		return m.ShopName
+	}
+	return ""
+}
+
+func (m *AddRequest) GetGoodsStock() int32 {
+	if m != nil {
+		return m.GoodsStock
+	}
+	return 0
+}
+
+func (m *AddRequest) GetGoodsUnit() string {
+	if m != nil {
+		return m.GoodsUnit
+	}
+	return ""
+}
+
+func (m *AddRequest) GetGoodsSpec() string {
+	if m != nil {
+		return m.GoodsSpec
+	}
+	return ""
+}
+
+func (m *AddRequest) GetPrice() int64 {
+	if m != nil {
+		return m.Price
+	}
+	return 0
+}
+
+func (m *AddRequest) GetVipPrice() int64 {
+	if m != nil {
+		return m.VipPrice
+	}
+	return 0
+}
+
+func (m *AddRequest) GetGoodsImg() string {
+	if m != nil {
+		return m.GoodsImg
+	}
+	return ""
+}
+
+func (m *AddRequest) GetState() int32 {
+	if m != nil {
+		return m.State
+	}
+	return 0
+}
+
+type AddResponse struct {
+	Status int32        `protobuf:"varint,1,opt,name=status" json:"status"`
+	Msg    string       `protobuf:"bytes,2,opt,name=msg" json:"msg"`
+	Data   *EmptyObject `protobuf:"bytes,3,opt,name=data" json:"data"`
+}
+
+func (m *AddResponse) Reset()                    { *m = AddResponse{} }
+func (m *AddResponse) String() string            { return proto.CompactTextString(m) }
+func (*AddResponse) ProtoMessage()               {}
+func (*AddResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{9} }
+
+func (m *AddResponse) GetStatus() int32 {
+	if m != nil {
+		return m.Status
+	}
+	return 0
+}
+
+func (m *AddResponse) GetMsg() string {
+	if m != nil {
+		return m.Msg
+	}
+	return ""
+}
+
+func (m *AddResponse) GetData() *EmptyObject {
 	if m != nil {
 		return m.Data
 	}
@@ -130,30 +727,31 @@ func (m *Response) GetData() []*Good {
 }
 
 type DeleteRequest struct {
-	GoodsId string `protobuf:"bytes,1,opt,name=goods_id,json=goods_id" json:"goods_id"`
+	GoodsId int64 `protobuf:"varint,1,opt,name=goods_id" json:"goods_id"`
 }
 
 func (m *DeleteRequest) Reset()                    { *m = DeleteRequest{} }
 func (m *DeleteRequest) String() string            { return proto.CompactTextString(m) }
 func (*DeleteRequest) ProtoMessage()               {}
-func (*DeleteRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{3} }
+func (*DeleteRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{10} }
 
-func (m *DeleteRequest) GetGoodsId() string {
+func (m *DeleteRequest) GetGoodsId() int64 {
 	if m != nil {
 		return m.GoodsId
 	}
-	return ""
+	return 0
 }
 
 type DeleteResponse struct {
-	Status int32  `protobuf:"varint,1,opt,name=status" json:"status"`
-	Msg    string `protobuf:"bytes,2,opt,name=msg" json:"msg"`
+	Status int32        `protobuf:"varint,1,opt,name=status" json:"status"`
+	Msg    string       `protobuf:"bytes,2,opt,name=msg" json:"msg"`
+	Data   *EmptyObject `protobuf:"bytes,3,opt,name=data" json:"data"`
 }
 
 func (m *DeleteResponse) Reset()                    { *m = DeleteResponse{} }
 func (m *DeleteResponse) String() string            { return proto.CompactTextString(m) }
 func (*DeleteResponse) ProtoMessage()               {}
-func (*DeleteResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{4} }
+func (*DeleteResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{11} }
 
 func (m *DeleteResponse) GetStatus() int32 {
 	if m != nil {
@@ -169,56 +767,7 @@ func (m *DeleteResponse) GetMsg() string {
 	return ""
 }
 
-type InfoRequest struct {
-	BrandId      int32  `protobuf:"varint,1,opt,name=brand_id" json:"brand_id"`
-	BusinessCode string `protobuf:"bytes,2,opt,name=business_code,json=business_code" json:"business_code"`
-}
-
-func (m *InfoRequest) Reset()                    { *m = InfoRequest{} }
-func (m *InfoRequest) String() string            { return proto.CompactTextString(m) }
-func (*InfoRequest) ProtoMessage()               {}
-func (*InfoRequest) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{5} }
-
-func (m *InfoRequest) GetBrandId() int32 {
-	if m != nil {
-		return m.BrandId
-	}
-	return 0
-}
-
-func (m *InfoRequest) GetBusinessCode() string {
-	if m != nil {
-		return m.BusinessCode
-	}
-	return ""
-}
-
-type InfoResponse struct {
-	Status int32  `protobuf:"varint,1,opt,name=status" json:"status"`
-	Msg    string `protobuf:"bytes,2,opt,name=msg" json:"msg"`
-	Data   *Good  `protobuf:"bytes,3,opt,name=data" json:"data"`
-}
-
-func (m *InfoResponse) Reset()                    { *m = InfoResponse{} }
-func (m *InfoResponse) String() string            { return proto.CompactTextString(m) }
-func (*InfoResponse) ProtoMessage()               {}
-func (*InfoResponse) Descriptor() ([]byte, []int) { return fileDescriptor0, []int{6} }
-
-func (m *InfoResponse) GetStatus() int32 {
-	if m != nil {
-		return m.Status
-	}
-	return 0
-}
-
-func (m *InfoResponse) GetMsg() string {
-	if m != nil {
-		return m.Msg
-	}
-	return ""
-}
-
-func (m *InfoResponse) GetData() *Good {
+func (m *DeleteResponse) GetData() *EmptyObject {
 	if m != nil {
 		return m.Data
 	}
@@ -226,41 +775,68 @@ func (m *InfoResponse) GetData() *Good {
 }
 
 func init() {
-	proto.RegisterType((*Good)(nil), "go.micro.srv.goods.Good")
-	proto.RegisterType((*Request)(nil), "go.micro.srv.goods.Request")
-	proto.RegisterType((*Response)(nil), "go.micro.srv.goods.Response")
-	proto.RegisterType((*DeleteRequest)(nil), "go.micro.srv.goods.DeleteRequest")
-	proto.RegisterType((*DeleteResponse)(nil), "go.micro.srv.goods.DeleteResponse")
-	proto.RegisterType((*InfoRequest)(nil), "go.micro.srv.goods.InfoRequest")
-	proto.RegisterType((*InfoResponse)(nil), "go.micro.srv.goods.InfoResponse")
+	proto.RegisterType((*EmptyObject)(nil), "go.micro.api.v1.goods.EmptyObject")
+	proto.RegisterType((*RpcGoods)(nil), "go.micro.api.v1.goods.RpcGoods")
+	proto.RegisterType((*DetailRequest)(nil), "go.micro.api.v1.goods.DetailRequest")
+	proto.RegisterType((*DetailResponse)(nil), "go.micro.api.v1.goods.DetailResponse")
+	proto.RegisterType((*ListRequest)(nil), "go.micro.api.v1.goods.ListRequest")
+	proto.RegisterType((*ListResponse)(nil), "go.micro.api.v1.goods.ListResponse")
+	proto.RegisterType((*UpdateRequest)(nil), "go.micro.api.v1.goods.UpdateRequest")
+	proto.RegisterType((*UpdateResponse)(nil), "go.micro.api.v1.goods.UpdateResponse")
+	proto.RegisterType((*AddRequest)(nil), "go.micro.api.v1.goods.AddRequest")
+	proto.RegisterType((*AddResponse)(nil), "go.micro.api.v1.goods.AddResponse")
+	proto.RegisterType((*DeleteRequest)(nil), "go.micro.api.v1.goods.DeleteRequest")
+	proto.RegisterType((*DeleteResponse)(nil), "go.micro.api.v1.goods.DeleteResponse")
 }
 
 func init() { proto.RegisterFile("goods.proto", fileDescriptor0) }
 
 var fileDescriptor0 = []byte{
-	// 384 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xac, 0x53, 0x41, 0x6b, 0xe2, 0x40,
-	0x14, 0xde, 0x98, 0x68, 0xf4, 0xa9, 0xcb, 0xf2, 0x0e, 0x4b, 0xd6, 0x15, 0x36, 0x3b, 0x7b, 0x91,
-	0x65, 0xc9, 0xc1, 0x3d, 0x14, 0x7a, 0x6b, 0xb5, 0x94, 0xd0, 0x22, 0x34, 0xd0, 0xb3, 0x4c, 0x9c,
-	0x51, 0x02, 0x9a, 0xb1, 0x99, 0xb1, 0x87, 0xfe, 0xb8, 0xfe, 0xb6, 0x32, 0x93, 0x8c, 0xb6, 0x34,
-	0x6d, 0x29, 0xed, 0xc9, 0x79, 0xef, 0xfb, 0xde, 0xf7, 0xbe, 0xf9, 0xc6, 0x40, 0x77, 0x25, 0x04,
-	0x93, 0xd1, 0xb6, 0x10, 0x4a, 0x20, 0xae, 0x44, 0xb4, 0xc9, 0x16, 0x85, 0x88, 0x64, 0x71, 0x1b,
-	0x19, 0x84, 0xdc, 0x81, 0x77, 0x2e, 0x04, 0xc3, 0x00, 0x7c, 0xfd, 0x2b, 0xe3, 0x69, 0xe0, 0x84,
-	0xce, 0xa8, 0x99, 0xd8, 0x12, 0x87, 0xd0, 0x31, 0xc7, 0x19, 0xdd, 0xf0, 0xa0, 0x11, 0x3a, 0xa3,
-	0x4e, 0x72, 0x68, 0x68, 0x74, 0x52, 0x70, 0xaa, 0x38, 0x3b, 0x51, 0x81, 0x6b, 0x26, 0x0f, 0x0d,
-	0x8d, 0x5e, 0x6f, 0x59, 0x85, 0x7a, 0x25, 0xba, 0x6f, 0x90, 0x23, 0xf0, 0x13, 0x7e, 0xb3, 0xe3,
-	0x52, 0x21, 0x82, 0x97, 0x6b, 0x7d, 0xc7, 0xe8, 0x9b, 0xb3, 0xb6, 0x94, 0xd2, 0x62, 0x22, 0x98,
-	0x5d, 0x6b, 0x4b, 0x92, 0x42, 0x3b, 0xe1, 0x72, 0x2b, 0x72, 0xc9, 0xf1, 0x3b, 0xb4, 0xa4, 0xa2,
-	0x6a, 0x27, 0x2b, 0xdf, 0x55, 0x85, 0xdf, 0xc0, 0xdd, 0xc8, 0x55, 0x35, 0xa9, 0x8f, 0xf8, 0x0f,
-	0x3c, 0x46, 0x15, 0x0d, 0xdc, 0xd0, 0x1d, 0x75, 0xc7, 0x41, 0xf4, 0x3c, 0x8d, 0x48, 0xdf, 0x2b,
-	0x31, 0x2c, 0xf2, 0x17, 0xfa, 0x53, 0xbe, 0xe6, 0x8a, 0x5b, 0x8b, 0x3f, 0xa0, 0x6d, 0x48, 0xf3,
-	0x8c, 0x55, 0x36, 0x7d, 0x53, 0xc7, 0x8c, 0x1c, 0xc3, 0x57, 0xcb, 0x7d, 0xaf, 0x2b, 0x72, 0x09,
-	0xdd, 0x38, 0x5f, 0x0a, 0xbb, 0x25, 0x00, 0xff, 0xb4, 0xa0, 0x39, 0x8b, 0x99, 0x7d, 0x87, 0xaa,
-	0xc4, 0x3f, 0xd0, 0x4f, 0x77, 0x32, 0xcb, 0xb9, 0x94, 0xf3, 0xc5, 0x21, 0x94, 0x9e, 0x6d, 0x9a,
-	0x64, 0x96, 0xd0, 0x2b, 0xd5, 0x3e, 0x90, 0x8e, 0xf3, 0x76, 0x3a, 0xe3, 0xfb, 0x06, 0x34, 0xcd,
-	0x9f, 0x00, 0xcf, 0xa0, 0x35, 0xe5, 0x8a, 0x66, 0x6b, 0xfc, 0x59, 0x37, 0x53, 0xdd, 0x6b, 0x30,
-	0xac, 0x07, 0x4b, 0x9b, 0xe4, 0x0b, 0x5e, 0x69, 0x19, 0x1d, 0x21, 0xfe, 0xae, 0x63, 0x3e, 0x79,
-	0x8a, 0x01, 0x79, 0x8d, 0xb2, 0x97, 0xbc, 0x00, 0x4f, 0x67, 0x81, 0xbf, 0xea, 0xd8, 0x8f, 0x32,
-	0x1f, 0x84, 0x2f, 0x13, 0xf6, 0x62, 0x33, 0xf0, 0xcb, 0x05, 0xe3, 0x4f, 0xd1, 0x4b, 0x5b, 0xe6,
-	0x93, 0xfc, 0xff, 0x10, 0x00, 0x00, 0xff, 0xff, 0xda, 0x52, 0x65, 0xc1, 0xa1, 0x03, 0x00, 0x00,
+	// 721 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xec, 0x56, 0xdf, 0x4e, 0xd4, 0x4c,
+	0x14, 0x67, 0xbf, 0x6e, 0x97, 0xdd, 0x53, 0x96, 0x0f, 0x47, 0xc0, 0xc9, 0xc6, 0xe8, 0x5a, 0x35,
+	0x59, 0x6f, 0x9a, 0x08, 0x89, 0xf7, 0x80, 0xc6, 0x6c, 0x62, 0x10, 0x5b, 0x81, 0xeb, 0xa1, 0x33,
+	0x96, 0xca, 0x96, 0xa9, 0xed, 0x20, 0xc1, 0x67, 0xf1, 0xc6, 0x87, 0xf0, 0x05, 0x7c, 0x11, 0x5f,
+	0xc5, 0xcc, 0x99, 0xb6, 0xdb, 0x4d, 0xe8, 0x82, 0x31, 0x21, 0x9a, 0x70, 0xd5, 0xf3, 0x3b, 0xe7,
+	0xcc, 0xcc, 0x6f, 0xce, 0xbf, 0x29, 0x38, 0x91, 0x94, 0x3c, 0xf7, 0xd2, 0x4c, 0x2a, 0x49, 0xd6,
+	0x22, 0xe9, 0x25, 0x71, 0x98, 0x49, 0x8f, 0xa5, 0xb1, 0xf7, 0xf9, 0xb9, 0x87, 0x46, 0xb7, 0x0f,
+	0xce, 0xab, 0x24, 0x55, 0x17, 0x6f, 0x8f, 0x3e, 0x8a, 0x50, 0xb9, 0x5f, 0x6d, 0xe8, 0xfa, 0x69,
+	0xf8, 0x5a, 0xdb, 0x08, 0x85, 0x45, 0x14, 0xc6, 0x9c, 0xb6, 0x86, 0xad, 0x91, 0xe5, 0x97, 0x90,
+	0xdc, 0x87, 0x1e, 0x8a, 0xbb, 0x2c, 0x11, 0xf4, 0xbf, 0x61, 0x6b, 0xd4, 0xf3, 0xa7, 0x0a, 0xf2,
+	0x00, 0x00, 0xc1, 0x76, 0x16, 0x8b, 0x0f, 0xd4, 0x42, 0x73, 0x4d, 0xa3, 0xf7, 0xdd, 0x61, 0x4a,
+	0xec, 0xc5, 0x9c, 0xb6, 0xcd, 0xbe, 0x05, 0x24, 0xeb, 0xd0, 0xd1, 0xe2, 0x98, 0x53, 0x1b, 0x0d,
+	0x05, 0xd2, 0x2b, 0xb6, 0x59, 0xb6, 0x23, 0xb9, 0xa0, 0x1d, 0xdc, 0xae, 0x84, 0x68, 0xc9, 0xd8,
+	0x29, 0x1f, 0x73, 0xba, 0x68, 0xf6, 0x2a, 0xa0, 0xe6, 0x88, 0x22, 0x72, 0xec, 0x1a, 0x8e, 0x95,
+	0x42, 0x9f, 0x14, 0x1c, 0xcb, 0x74, 0xcc, 0x69, 0xcf, 0x9c, 0x64, 0x10, 0x19, 0x40, 0x57, 0x4b,
+	0xb8, 0x08, 0x70, 0x51, 0x85, 0xab, 0x7b, 0x05, 0x4a, 0x86, 0x27, 0xd4, 0x19, 0xb6, 0x46, 0xb6,
+	0x5f, 0xd3, 0x54, 0x51, 0xd9, 0x3f, 0x8d, 0x15, 0x5d, 0xaa, 0x45, 0x45, 0x2b, 0x2a, 0x6b, 0x90,
+	0x8a, 0x90, 0xf6, 0x6b, 0x56, 0xad, 0x20, 0xab, 0x60, 0xef, 0x65, 0x71, 0x28, 0xe8, 0x32, 0xd2,
+	0x31, 0x40, 0xb3, 0x39, 0x88, 0x53, 0x63, 0xf8, 0x1f, 0x0d, 0x15, 0xd6, 0x36, 0x93, 0x8e, 0x24,
+	0xa2, 0x2b, 0x86, 0x69, 0x89, 0x35, 0xd3, 0x71, 0x12, 0xed, 0x31, 0x75, 0xbc, 0x9f, 0x4d, 0xe8,
+	0x1d, 0x93, 0x81, 0xa9, 0x46, 0x9f, 0x16, 0x28, 0xa6, 0x04, 0x25, 0x78, 0x09, 0x03, 0x74, 0x2c,
+	0x03, 0x36, 0x11, 0xbb, 0x67, 0x09, 0xbd, 0x6b, 0x62, 0x59, 0x40, 0x6d, 0x39, 0x88, 0xc5, 0xb9,
+	0xb6, 0xac, 0x1a, 0x4b, 0x01, 0xc9, 0x10, 0x9c, 0xf2, 0xd4, 0x40, 0x65, 0x74, 0x0d, 0x8f, 0xaa,
+	0xab, 0x88, 0x0b, 0x4b, 0xd5, 0x35, 0xb5, 0xcb, 0x3a, 0xba, 0xcc, 0xe8, 0x08, 0x81, 0xf6, 0xfb,
+	0x38, 0xcd, 0xe9, 0xbd, 0xa1, 0x35, 0xea, 0xf9, 0x28, 0xa3, 0x8e, 0x45, 0x39, 0xa5, 0x85, 0x8e,
+	0x45, 0xb9, 0xfb, 0x0c, 0xfa, 0x2f, 0x85, 0x62, 0xf1, 0xc4, 0x17, 0x9f, 0xce, 0x44, 0xae, 0x9a,
+	0x4b, 0xd4, 0x95, 0xb0, 0x5c, 0xba, 0xe6, 0xa9, 0x3c, 0xcd, 0x31, 0xe5, 0xb9, 0x62, 0xea, 0x2c,
+	0x47, 0x57, 0xdb, 0x2f, 0x10, 0x59, 0x01, 0x2b, 0xc9, 0xa3, 0xa2, 0x8c, 0xb5, 0x48, 0x36, 0xa1,
+	0xcd, 0x99, 0x62, 0x58, 0xba, 0xce, 0xc6, 0x43, 0xef, 0xd2, 0xd6, 0xf1, 0xca, 0x3e, 0xf1, 0xd1,
+	0xd9, 0xfd, 0xd6, 0x02, 0xe7, 0x4d, 0x9c, 0xab, 0x92, 0x9a, 0x3e, 0xce, 0x54, 0x58, 0x0b, 0x77,
+	0x2e, 0x90, 0xbe, 0x57, 0xca, 0x22, 0xd3, 0x36, 0xb6, 0x8f, 0xb2, 0xce, 0xa5, 0xfe, 0x06, 0xf1,
+	0x17, 0x81, 0x87, 0xda, 0x7e, 0x85, 0x6b, 0xb4, 0xdb, 0x33, 0xb4, 0x07, 0xd0, 0x3d, 0x11, 0x17,
+	0xe7, 0x32, 0xe3, 0x39, 0x76, 0x4b, 0xcf, 0xaf, 0xb0, 0x5e, 0x13, 0x9a, 0x3e, 0x32, 0xed, 0x52,
+	0x20, 0x37, 0x81, 0x25, 0x43, 0xf1, 0x0f, 0x42, 0x62, 0x5d, 0x3f, 0x24, 0x3f, 0x2d, 0xe8, 0xef,
+	0xa7, 0x9c, 0x29, 0x71, 0x65, 0xbe, 0x6e, 0x47, 0xca, 0x5f, 0x3e, 0x52, 0x2e, 0x1d, 0x19, 0x6e,
+	0x06, 0xcb, 0x65, 0x82, 0x7f, 0xbb, 0xa4, 0x5e, 0xcc, 0x74, 0x99, 0xdb, 0x50, 0x52, 0xb5, 0xd7,
+	0xa9, 0xa8, 0xaa, 0x1f, 0x16, 0xc0, 0x16, 0xe7, 0x65, 0x49, 0xdd, 0x16, 0xce, 0xbf, 0x58, 0x38,
+	0x12, 0x1c, 0xcc, 0xe1, 0x8d, 0x55, 0x0d, 0x3e, 0x1d, 0x13, 0x71, 0x8d, 0x51, 0xa4, 0x8b, 0xba,
+	0x74, 0xbd, 0x29, 0x7a, 0x1b, 0xdf, 0x2d, 0xb0, 0xcd, 0x5f, 0xd7, 0x21, 0x74, 0xcc, 0xc3, 0x45,
+	0x9e, 0x34, 0xac, 0x9e, 0x79, 0x02, 0x07, 0x4f, 0xaf, 0xf0, 0x32, 0x57, 0x70, 0x17, 0xc8, 0x3b,
+	0x68, 0xeb, 0xe1, 0x4f, 0x9a, 0x48, 0xd5, 0x1e, 0xaf, 0xc1, 0xe3, 0xb9, 0x3e, 0xd5, 0x96, 0x87,
+	0xd0, 0x31, 0xed, 0xdf, 0xc8, 0x75, 0x66, 0xfc, 0x37, 0x72, 0x9d, 0x9d, 0x21, 0xee, 0x02, 0xd9,
+	0x05, 0x6b, 0x8b, 0x73, 0xf2, 0xa8, 0xc1, 0x7f, 0xda, 0xfe, 0x03, 0x77, 0x9e, 0x4b, 0x9d, 0xa8,
+	0x49, 0xe9, 0x9c, 0xa0, 0xd6, 0x8a, 0x63, 0x4e, 0x50, 0xeb, 0x75, 0xe1, 0x2e, 0x1c, 0x75, 0xf0,
+	0xef, 0x7a, 0xf3, 0x57, 0x00, 0x00, 0x00, 0xff, 0xff, 0x9c, 0xb8, 0x0b, 0xdf, 0x6c, 0x0b, 0x00,
+	0x00,
 }
