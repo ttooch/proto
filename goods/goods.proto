@@ -3,129 +3,108 @@ syntax = "proto3";
 package go.micro.api.v1.goods;
 
 service Goods {
-	rpc Detail(DetailRequest) returns (DetailResponse) {}
-    rpc List(ListRequest) returns (ListResponse) {}
-    rpc Update(UpdateRequest) returns (UpdateResponse) {}
-    rpc Add(AddRequest) returns (AddResponse) {}
+	rpc GetShopTopCategories(ShopTopCategoriesRequest) returns (ShopTopCategoriesResponse) {}
+    rpc AddShopCategory(CategoryDetailRequest) returns (CategoryDetailResponse) {}
+    rpc DeleteShopCategory(UpdateRequest) returns (UpdateResponse) {}
+    rpc EditShopCategory(AddRequest) returns (AddResponse) {}
     rpc Delete(DeleteRequest) returns (DeleteResponse) {}
+}
+
+message ShopTopCategoriesRequest {
+	int64 time = 1;
+	string token = 2;
+	string authToken = 3;
+	string shop_id = 4;
+}
+
+message ShopTopCategoriesResponse {
+	int32 status = 1;
+	string msg = 2;
+	string authToken = 3;
+    repeated CategoryList data = 4;
+}
+
+message CategoryList{
+	string _id = 1;
+	string cate_id = 2;
+	string cate_name = 3;
+    string pid = 4;
+    string cate_logo = 5;
+    string img_path_url = 6;
+    string shop_id = 7;
+    string shop_type = 8;
+    string state = 9;
+    int32 sort = 10;
+    int32 created_at = 11;
+    int32 updated_at = 12;
+    int32 sync_goods_num = 13;
+    string cate_logo_str = 14;
+    string parent_name = 15;
+    int32 goods_num = 16;
+}
+
+message CategoryDetailRequest {
+	int64 time = 1;
+	string token = 2;
+	string authToken = 3;
+	string shop_id = 4;
+	string cate_name = 5;
+}
+
+message CategoryDetailResponse {
+	int32 status = 1;
+	string msg = 2;
+	string authToken = 3;
+    CategoryDetail data = 4;
+}
+
+message CategoryDetail{
+	int32 sync_goods_num = 1;
+	string cate_logo_str = 2;
+	string parent_name = 3;
+    int32 goods_num = 4;
+    string _id = 5;
+    string cate_name = 6;
+    int32 cate_id = 7;
+    string pid = 8;
+    string shop_id = 9;
+    string state = 10;
+    string sort = 11;
+    string shop_type = 12;
+    int32 created_at = 13;
+    int32 updated_at = 14
+}
+
+message CategoryDeleteResponse {
+	int64 time = 1;
+	string token = 2;
+	string authToken = 3;
+	string shop_id = 4;
+	string category_id = 5;
+}
+
+message CategoryDeleteResponse {
+	int32 status = 1;
+	string msg = 2;
+	string authToken = 3;
+    EmptyObject data = 4;
+}
+
+message EditShopCategoryResponse {
+	int64 time = 1;
+	string token = 2;
+	string authToken = 3;
+	string shop_id = 4;
+	string category_id = 5;
+}
+
+message EditShopCategoryResponse {
+	int32 status = 1;
+	string msg = 2;
+	string authToken = 3;
+    CategoryDetail data = 4;
 }
 
 message EmptyObject{
 
 }
-
-message RpcGoods{
-    int64 GoodsId = 1;
-    string GoodsName = 2;
-    string GoodsBrief = 3;
-    int64 CatePid = 4;
-    int64 CateId = 5;
-    string BarCode = 6;
-    int64 BrandId = 7;
-    string BrandName = 8;
-    int64 ShopId = 9;
-    string ShopName = 10;
-    int32 GoodsStock = 11;
-    string GoodsUnit = 12;
-    string GoodsSpec = 13;
-    int64 Price = 14;
-    int64 VipPrice = 15;
-    string GoodsImg = 16;
-    string ImgPathUrl = 17;
-    int32 State = 18;
-    int64 SaleNum = 19;
-    int64 ViewNum = 20;
-    string GoodsImgStr = 21;
-    string GoodsSpecStr = 22;
-    repeated string Tips = 23;
-    repeated string Tags = 24;
-}
-
-message DetailRequest {
-	int64 GoodsId = 1;
-}
-
-message DetailResponse {
-	int32 status = 1;
-	string msg = 2;
-    RpcGoods data = 3;
-}
-
-message ListRequest{
-    string shopId = 1;
-    int32 page = 2;
-    int32 pageSize = 3;
-    int32 status = 4;
-    string keywords = 5;
-    string cateId = 6;
-}
-
-message ListResponse{
-    int32 status = 1;
-    string msg = 2;
-    repeated RpcGoods data = 3;
-}
-
-message UpdateRequest{
-    int64 GoodsId = 1;
-    string GoodsName = 2;
-    string GoodsBrief = 3;
-    int64 CatePid = 4;
-    int64 CateId = 5;
-    string BarCode = 6;
-    int64 BrandId = 7;
-    string BrandName = 8;
-    int64 ShopId = 9;
-    string ShopName = 10;
-    int32 GoodsStock = 11;
-    string GoodsUnit = 12;
-    string GoodsSpec = 13;
-    int64 Price = 14;
-    int64 VipPrice = 15;
-    string GoodsImg = 16;
-    int32 State = 18;
-}
-
-message UpdateResponse{
-    int32 status = 1;
-    string msg = 2;
-    EmptyObject data = 3;
-}
-
-message AddRequest{
-    string GoodsName = 2;
-    string GoodsBrief = 3;
-    int64 CatePid = 4;
-    int64 CateId = 5;
-    string BarCode = 6;
-    int64 BrandId = 7;
-    string BrandName = 8;
-    int64 ShopId = 9;
-    string ShopName = 10;
-    int32 GoodsStock = 11;
-    string GoodsUnit = 12;
-    string GoodsSpec = 13;
-    int64 Price = 14;
-    int64 VipPrice = 15;
-    string GoodsImg = 16;
-    int32 State = 18;
-}
-
-message AddResponse{
-    int32 status = 1;
-    string msg = 2;
-    EmptyObject data = 3;
-}
-
-message DeleteRequest{
-    int64 GoodsId = 1;
-}
-
-message DeleteResponse{
-    int32 status = 1;
-    string msg = 2;
-    EmptyObject data = 3;
-}
-
-
-
